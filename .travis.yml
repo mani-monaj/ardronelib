@@ -1,0 +1,15 @@
+language: cpp
+
+compiler:
+  - gcc
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq -y python-rosdep
+  - sudo rosdep init
+  - rosdep update
+  - rosdep --os=ubuntu:precise resolve binutils daemontools sdl gtk2 libxml2 libudev-dev libiw-dev | grep -v "#" | tr "\n" " " > /tmp/packages.txt
+  - sudo apt-get install -qq -y `cat /tmp/packages.txt`
+
+script: 
+  - make
